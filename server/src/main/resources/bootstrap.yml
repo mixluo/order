@@ -7,6 +7,21 @@ spring:
         enabled: true
         service-id: CONFIG
       profile: test
+    stream:
+          defaultBinder:
+          bindings:
+            #消费者通道
+            myStreamMessageInput:
+              destination: myStreamOrderExchange
+              #group分组对于一个服务部署多台机器的情况下如果不分组。每个机器上的服务都会消费队列里的东西
+              group: order
+              content-type: application/json
+            #生产者通道
+            myStreamMessageOutput:
+              destination: myStreamOrderExchange
+              content-type: application/json
+              group: order
+
 eureka:
   client:
     service-url:
