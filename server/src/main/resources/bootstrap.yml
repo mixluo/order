@@ -21,8 +21,21 @@ spring:
               destination: myStreamOrderExchange
               content-type: application/json
               group: order
-
+  zipkin:
+    base-url: http://192.168.40.128:9411
+  #probability里面有默认的百分比（0.1f--10%）。配置发送多少日志到zipkin。我们开发环境配置为100%
+  sleuth:
+    sampler:
+      probability: 1
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8763/eureka/
+#开启熔断机制
+feign:
+  hystrix:
+    enabled: true
+#将feign服务每次调用的时候都输出日志
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug
